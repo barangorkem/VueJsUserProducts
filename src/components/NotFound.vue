@@ -1,6 +1,6 @@
 <template>
-  <div class="hello">
-    <h1>Hello World</h1>
+  <div class="NotFound">
+    <h1>Sayfa bulunamadı</h1>
    
  
   </div>
@@ -8,7 +8,7 @@
 
 <script>
 export default {
-  name: 'HelloWorld',
+  name: 'NotFound',
   props: {
   
   }

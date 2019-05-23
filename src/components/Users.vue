@@ -45,9 +45,7 @@ export default {
         .get(`${API_PATH}/users`)
         .then(response => response.data)
         .then(data => {
-          /* eslint-disable no-console */
-          console.log(data);
-          /* eslint-disable no-console */
+         
           this.users = data;
         })
         .catch(error => {
