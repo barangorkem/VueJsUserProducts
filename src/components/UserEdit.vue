@@ -70,7 +70,7 @@ export default {
   methods: {
     getUser() {
       return axios
-        .get(`${API_PATH}/users/${this.$route.params.id}`)
+        .get(`${API_PATH}/users/${this.$route.params.id}`,{ headers: { Authorization: "Bearer "+localStorage.getItem("token") } })
         .then(response => response.data)
         .then(data => {
           /* eslint-disable no-console */

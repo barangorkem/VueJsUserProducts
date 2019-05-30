@@ -3,8 +3,10 @@
 import LoginUser from './components/LoginUser.vue';
 import Users from './components/Users.vue';
 import AddUser from './components/AddUser.vue';
+import AddProduct from './components/Products/AddProduct.vue';
 import UserEdit from './components/UserEdit.vue';
 import UserDashboard from './components/UserDashboard.vue'
+import ProductList from './components/Products/ProductList.vue'
 import NotFound from './components/NotFound.vue'
 export default [
     { path: "/", component: LoginUser, name: 'usersLogin' },
@@ -17,7 +19,7 @@ export default [
                 path: "",
                 component: AddUser,
                 name:"adduser",
-                meta: { requiresAuth: true }
+                meta: { requiresAuth: true}
             },
 
             {
@@ -25,7 +27,7 @@ export default [
                 path: "list",
                 name:"list",
                 component: Users,
-                meta: { requiresAuth: true }
+                meta: { requiresAuth: true,urlRoles:['Admin'] }
             },
             {
 
@@ -37,6 +39,26 @@ export default [
 
         ]
     },
+    {
+        path: "/products", component: UserDashboard, name:"productdashboard", children: [
+
+            {
+
+                path: "",
+                component: AddProduct,
+                name:"addproduct",
+                meta: { requiresAuth: true }
+            },
+            {
+
+                path: "productList",
+                component: ProductList,
+                name:"productList",
+                meta: { requiresAuth: true }
+            },
+        ]
+    },
+    
     { path: '/404',name:"404", component: NotFound },
     { path: '*', redirect: '/404' },
 

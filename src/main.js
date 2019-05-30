@@ -3,7 +3,8 @@ import App from './App.vue'
 import VueRouter from 'vue-router'
 import Routes from './routes'
 import VeeValidate from 'vee-validate'
-import {getToken} from './Auth.js'
+import {getToken,isAuthRoles} from './Auth.js'
+import axios from 'axios'
 Vue.config.productionTip = false
 
 Vue.use(VueRouter)
@@ -19,7 +20,22 @@ router.beforeEach((to,from,next)=>{
     {
       if(getToken())
         {
-          next()
+        if(to.meta.urlRoles!=null)
+            {
+              if(isAuthRoles(to.meta.urlRoles))
+                {
+                  next()
+                }
+              else
+                {
+                  next({name:'404'})
+                }
+            }
+          else
+            {
+              next();
+            }
+          
         }
       else
       {
@@ -42,7 +58,21 @@ router.beforeEach((to,from,next)=>{
 
   /* eslint-disable no-console */
 })
+axios.interceptors.request.use(
+  (config) => {
+    let token = localStorage.getItem('token');
 
+    if (token) {
+      config.headers['Authorization'] = `Bearer ${ token }`;
+    }
+
+    return config;
+  }, 
+
+  (error) => {
+    return Promise.reject(error);
+  }
+);
 new Vue({
   render: h => h(App),
   router:router

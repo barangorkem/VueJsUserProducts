@@ -69,6 +69,7 @@ export default {
             /* eslint-disable no-console */
             console.log(data)
             localStorage.setItem("token",data.data.token)
+            localStorage.setItem("roles",JSON.stringify(data.data.roles))
              this.$router.push({ path: 'users' })
             /* eslint-disable no-console */
           })
